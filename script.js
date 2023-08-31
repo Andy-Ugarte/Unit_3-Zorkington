@@ -14,20 +14,36 @@
 */
 
 export const gameDetails = {   
-    title: 'Game Title',
-    desc: 'Welcome to the world of... here are some quick rules & concepts...',
-    author: 'Student Name',
-    cohort: 'SBPT-2022',
-    startingRoomDescription: 'What you see before you is...',
+    title: 'Forkington',
+    desc: 'Welcome to the world of restaurant work!!!',
+    author: 'Andy Ugarte',
+    cohort: 'PTSD-2023',
+    startingRoomDescription: 'What you see before you is the lobby of a Mexican restaurant',
     playerCommands: [
         // replace these with your games commands as needed
-        'inspect', 'view', 'look', 'pickup',
+        'inspect', 'view', 'look', 'pickup', 'clean', 'carry', 'call'
     ]
     // Commands are basic things that a player can do throughout the game besides possibly moving to another room. This line will populate on the footer of your game for players to reference. 
     // This shouldn't be more than 6-8 different commands.
 }
 
 // Your code here
+let items = {
+    lobby: 'couch, matches',
+    kitchen: 'stove, pot',
+    busCloset: 'fountain, glass',
+    bathroom: 'toilet, tissue',
+
+  }
+
+let locations = {
+    lobby: 'front door, seats and host podium',
+    kitchen: 'back door, kitchen appliances',
+    busCloset: 'fountain, glass',
+    bathroom: 'toilet, tissue',
+
+  }
+  
 
 export const domDisplay = (playerInput) => {
     /* 
@@ -41,7 +57,7 @@ export const domDisplay = (playerInput) => {
 
         What your player should be able to do (checklist):
             - move between rooms
-            - view current room
+            - view current rooms
             - pickup moveable items
                 - there should be at least 2 items that cannot be moved.
             - view player inventory
