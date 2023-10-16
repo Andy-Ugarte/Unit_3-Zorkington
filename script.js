@@ -21,12 +21,14 @@ export const gameDetails = {
     startingRoomDescription: 'What you see before you is the lobby of a Mexican restaurant',
     playerCommands: [
         // replace these with your games commands as needed
-        'inspect', 'view', 'look', 'pickup' ]
+        'inspect', 'view', 'look', 'pickup','enter' ]
     // Commands are basic things that a player can do throughout the game besides possibly moving to another room. This line will populate on the footer of your game for players to reference. 
     // This shouldn't be more than 6-8 different commands.
 }
 
 // Your code here
+// const items = [ "couch", "matches", "stove", "pot","fountain", "glass","toilet", "tissue"]
+
 class Item {
     constructor(name, description, location, move) {
       this.name = name;
@@ -49,6 +51,7 @@ let pot = new Item ('pot','cookpot','kitchen', true);
 console.log(pot);
 
 let fountain = new Item ('fountain', 'soft drink dispenser', 'busCloset', false);
+console.log(fountain);
 
 let glass = new Item ('glass', 'cup', 'busCloset', true);
 console.log(glass);
@@ -60,38 +63,63 @@ let tissue = new Item ('tissue','kleanex', 'bathroom', true);
 console.log(tissue);
 
 
-// const items = [ "couch", "matches", "stove", "pot","fountain", "glass","toilet", "tissue"]
 
 class Location {
     constructor(avaibleExits, description, accessItems) {
-      this.accessExits = avaibleExits;
+      this.avaibleExits = avaibleExits;
       this.description = description;
       this.accessItems = accessItems;
     }
 }
 
-let lobby = new Location ('front door', 'host are front of house','matches')
+let lobby = new Location (['kitchen'], 'host are front of house','matches')
 console.log(lobby);
 
-let kitchen = new Location ('back door', 'a place where one cooks', 'pot')
+let kitchen = new Location (['busCloset'], 'a place where one cooks', 'pot')
 console.log(kitchen);
 
-let busCloset = new Location ('hallway', 'a closet with basic restaurant supplies', 'cup')
+let busCloset = new Location ('kitchen', 'a closet with basic restaurant supplies', 'cup')
 console.log(busCloset);
 
 let bathroom = new Location ('window', 'a room with toilets and sinks', 'tissue');
 console.log(bathroom);
 
 const locations = {
-    lobby: 'front door, seats and host podium',
-    kitchen: 'back door, kitchen appliances',
-    busCloset: 'fountain, glass',
-    bathroom: 'toilet, tissue',
+    'lobby': lobby , 
+    'kitchen': kitchen,
+    busCloset: busCloset,
+    bathroom: bathroom,
 
   }
   console.log(locations.lobby);
 
+
+let currentLocation = lobby 
+
 export const domDisplay = (playerInput) => {
+    // look up.split "method" ()
+    // "action" "target"
+    //write IF statmnts. 
+
+let input = playerInput.split(" ")
+    console.log(input);
+let command = input[0]
+
+let target = input[1]
+
+if(command === 'enter' && currentLocation.avaibleExits.includes(target)) {
+    currentLocation = locations[target] //locations.kitchen
+    return currentLocation.description
+} else if (command === 'pickup' && currentLocation.accessItems.includes(target)){
+    //code picking up object 
+}
+
+
+
+
+
+
+
     /* 
         TODO: for students
         - This function must return a string. 
