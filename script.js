@@ -18,10 +18,10 @@ export const gameDetails = {
     desc: 'Welcome to the world of restaurant work!!!',
     author: 'Andy Ugarte',
     cohort: 'PTSD-2023',
-    startingRoomDescription: 'What you see before you is the lobby of a Mexican restaurant',
+    startingRoomDescription: 'What you see before you is the lobby of a Mexican restaurant, from here you can go to the kitchen',
     playerCommands: [
         // replace these with your games commands as needed
-        'inspect', 'view', 'look', 'pickup','enter' ]
+        'enter', 'view', 'pickup', ]
     // Commands are basic things that a player can do throughout the game besides possibly moving to another room. This line will populate on the footer of your game for players to reference. 
     // This shouldn't be more than 6-8 different commands.
 }
@@ -41,27 +41,39 @@ class Item {
 let couch = new Item ('couch', 'brown sofa', 'lobby', false);
 console.log(couch);
 
-let matches = new Item ('matches','fire sticks','lobby',true);
+let matches = new Item ('matches','you picked up fire sticks','lobby',true);
 console.log(matches);
 
 let stove = new Item ('stove','cooktop', 'kitchen', false);
 console.log(stove);
 
-let pot = new Item ('pot','cookpot','kitchen', true);
+let pot = new Item ('pot','you picked up a pot','kitchen', true);
 console.log(pot);
 
 let fountain = new Item ('fountain', 'soft drink dispenser', 'busCloset', false);
 console.log(fountain);
 
-let glass = new Item ('glass', 'cup', 'busCloset', true);
+let glass = new Item ('glass', 'you picked up a cup', 'busCloset', true);
 console.log(glass);
 
 let toilet = new Item ('toilet', 'el water', 'bathroom', false);
 console.log(toilet);
 
-let tissue = new Item ('tissue','kleanex', 'bathroom', true);
+let tissue = new Item ('tissue','you picked up a kleanex', 'bathroom', true);
 console.log(tissue);
 
+const items = {
+    // movable items
+    matches: matches,
+    pot: pot,
+    cup: cup,
+    tissue: tissue,
+    // non move items
+    couch: couch,
+    stove: stove,
+    fountain: fountain,
+    toilet: toilet
+} 
 
 
 class Location {
@@ -72,23 +84,28 @@ class Location {
     }
 }
 
-let lobby = new Location (['kitchen'], 'host are front of house','matches')
+let lobby = new Location (['kitchen'], 'host are front of house, from here you can go to the kitchen',['matches', 'couch'])
 console.log(lobby);
 
-let kitchen = new Location (['busCloset'], 'a place where one cooks', 'pot')
+let kitchen = new Location (['busCloset' , 'lobby'], 'a place where one cooks, from here you can go to the busCloset', ['pot','stove'])
 console.log(kitchen);
 
-let busCloset = new Location ('kitchen', 'a closet with basic restaurant supplies', 'cup')
+let busCloset = new Location (['bathroom', 'kitchen'], 'a closet with basic restaurant supplies, from here you can go to the bathroom', ['cup','fountain'])
 console.log(busCloset);
 
-let bathroom = new Location ('window', 'a room with toilets and sinks', 'tissue');
+let bathroom = new Location (['window'], 'a room with toilets and sinks, from here you can leave from the window', ['tissue','toilet']);
 console.log(bathroom);
 
+let window = new Location (['bathroom'], 'an exit, that leads you to bathroom' ) 
+
 const locations = {
-    'lobby': lobby , 
-    'kitchen': kitchen,
+    lobby: lobby , 
+    kitchen: kitchen,
     busCloset: busCloset,
     bathroom: bathroom,
+    window: window,
+    
+
 
   }
   console.log(locations.lobby);
@@ -110,7 +127,12 @@ let target = input[1]
 if(command === 'enter' && currentLocation.avaibleExits.includes(target)) {
     currentLocation = locations[target] //locations.kitchen
     return currentLocation.description
-} else if (command === 'pickup' && currentLocation.accessItems.includes(target)){
+} else if (command === 'pickup' && currentLocation.accessItems.includes(target)) {
+    //currentAccessItems = locations 
+    // have a value for item looking will be tager target, variable set current item, so if current ittem is = true or = false.
+    // if else (maybe inside else if. )
+    return items[target].description
+    console.log('this works');
     //code picking up object 
 }
 
